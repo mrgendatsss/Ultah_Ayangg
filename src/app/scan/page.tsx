@@ -17,9 +17,9 @@ export default function ScanPage() {
       setResult(text);
       handleQRCode(text);
     },
-    onError(error) {
+    onError(error: unknown) {
       // Intentionally ignoring frequent decode errors from the camera
-      if (!(error.name === 'NotFoundException')) {
+      if (error instanceof Error && error.name !== 'NotFoundException') {
         console.error(error);
       }
     },

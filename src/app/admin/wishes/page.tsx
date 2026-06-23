@@ -33,7 +33,7 @@ export default function AdminWishesPage() {
     setLoading(false);
   };
 
-  const updateStatus = async (id: number, status: "approved" | "rejected") => {
+  const updateStatus = async (id: number, status: "pending" | "approved" | "rejected") => {
     const { error } = await supabase
       .from("wishes")
       .update({ status })

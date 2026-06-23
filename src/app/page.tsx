@@ -16,7 +16,19 @@ const quotes = [
 export default function Page01And02() {
   const router = useRouter();
   const { play, hasInteracted, setHasInteracted } = useMusic();
-  const [stage, setStage] = useState<"modal" | "loading" | "landing">("modal");
+  const [stage, setStage] = useState<"password" | "modal" | "loading" | "landing">("password");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password.toLowerCase().trim() === "suki") {
+      setStage("modal");
+    } else {
+      setPasswordError(true);
+      setTimeout(() => setPasswordError(false), 2000);
+    }
+  };
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [progress, setProgress] = useState(0);
 
@@ -101,6 +113,39 @@ export default function Page01And02() {
 
       <AnimatePresence mode="wait">
         
+        {/* PASSWORD STAGE */}
+        {stage === "password" && (
+          <motion.div
+            key="password"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.1 }}
+            className="relative z-50 bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl max-w-xs text-center shadow-2xl mx-6"
+          >
+            <h2 className="text-2xl font-serif text-gold mb-6">Security Check</h2>
+            <p className="text-ivory/80 mb-6 font-medium">Nama Kucing Orenmu Siapa ?</p>
+            <form onSubmit={handlePasswordSubmit}>
+              <input 
+                type="text" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Jawaban..."
+                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-ivory text-center focus:outline-none focus:border-gold mb-4 placeholder:text-white/30"
+              />
+              {passwordError && (
+                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-400 text-sm mb-4">
+                  Salah! Coba lagi.
+                </motion.p>
+              )}
+              <button
+                type="submit"
+                className="w-full bg-gold text-charcoal font-semibold py-3 rounded-xl hover:bg-gold/90 transition-colors active:scale-95"
+              >
+                Masuk
+              </button>
+            </form>
+          </motion.div>
+        )}
         {/* MODAL STAGE */}
         {stage === "modal" && (
           <motion.div

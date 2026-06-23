@@ -6,7 +6,7 @@ import { X, Mail, PlayCircle, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const cards = [
-  { id: 1, title: "You're Sad", content: "I hate seeing you sad. Remember that storm we got caught in? We laughed until we cried. That's how I want you to feel always.", hasVoice: true },
+  { id: 1, title: "You're Sad", content: "Hey love,\n\nI know today might be a little hard.\n\nJust remember, you're not alone in this.\n\nTake a breath, get some rest, and tell me about it later.\n\nI'll be here. 🤍", hasVoice: true },
   { id: 2, title: "You Miss Me", content: "I miss you too! Close your eyes and imagine I'm giving you the biggest hug right now.", hasVoice: false },
   { id: 3, title: "You're Stressed", content: "Take a deep breath. You're the smartest, most capable person I know. You've got this, and I've got you.", hasVoice: true },
   { id: 4, title: "You're Happy", content: "I love it when you're happy! Your smile is literally my favorite thing in the world. Keep shining.", hasVoice: false },
@@ -77,7 +77,7 @@ export default function OpenWhenPage() {
                 <h3 className="text-2xl font-serif text-gold">{openedCard.title}</h3>
               </div>
               
-              <p className="text-ivory/90 leading-relaxed font-medium text-lg mb-8 italic text-center">
+              <p className="text-ivory/90 leading-relaxed font-medium text-lg mb-8 italic text-center whitespace-pre-wrap">
                 "{openedCard.content}"
               </p>
 

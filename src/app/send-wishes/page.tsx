@@ -18,7 +18,7 @@ export default function SendWishesPage() {
       let videoUrl = null;
 
       if (file) {
-        if (file.size > 3 * 1024 * 1024) {
+        if (file.size > 15 * 1024 * 1024) {
           throw new Error("Video file size must be less than 3MB. Please compress your video.");
         }
 

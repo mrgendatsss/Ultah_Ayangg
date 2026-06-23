@@ -186,15 +186,15 @@ export default function Page01And02() {
               className="absolute top-1/4 left-1/4 w-32 h-32 bg-gold rounded-full blur-[70px] z-0 pointer-events-none"
             />
 
-            <TypewriterText text="Happy Birthday ❤️" />
+            <TypewriterText text="Happy Birthday" />
             
             <motion.h2 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.5 }}
-              className="text-3xl font-bold text-cream-white mb-2 text-center"
+              className="text-3xl font-bold text-ivory mb-2 text-center"
             >
-              Arjaaaa
+              Arjaaaa sayang ❤️
             </motion.h2>
 
             <motion.p

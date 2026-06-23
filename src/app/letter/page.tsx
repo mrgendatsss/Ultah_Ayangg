@@ -9,7 +9,7 @@ export default function LetterPage() {
   const router = useRouter();
   const [showButton, setShowButton] = useState(false);
 
-  const letterText = "Kalau kamu lagi baca ini, berarti hari yang aku tunggu akhirnya datang. Aku cuma mau bilang kalau aku bersyukur banget bisa ada di hidup kamu. Enjoy this little journey I made just for you.";
+  const letterText = "Kalau kamu lagi baca ini, berarti hari yang aku tunggu akhirnya datang. Jarak mungkin membuat kita nggak selalu bisa bersama, tapi nggak pernah mengurangi betapa berartinya kamu buat aku. Jadi hari ini, aku cuma mau merayakan seseorang yang paling spesial bagiku. Enjoy this little journey I made just for you. 🤍";
 
   // Calculate delay based on letter length
   useEffect(() => {

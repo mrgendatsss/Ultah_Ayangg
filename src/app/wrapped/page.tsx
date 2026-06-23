@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function WrappedPage() {
   const router = useRouter();
@@ -69,9 +70,8 @@ export default function WrappedPage() {
       <h2 className="text-3xl font-serif text-ivory mb-6">Most Beautiful Smile</h2>
       <p className="text-ivory/70 text-lg mb-2">Some smiles make people happy.</p>
       <p className="text-gold font-medium text-xl mb-10">Yours makes people stay.</p>
-      <div className="w-full aspect-[3/4] bg-white/10 rounded-2xl overflow-hidden relative border-4 border-white/10 flex flex-col items-center justify-center">
-         <span className="text-ivory/30">[Insert Photo Here]</span>
-         <span className="text-ivory/20 text-xs mt-2">(Use admin or replace in code)</span>
+      <div className="w-full aspect-[3/4] bg-white/10 rounded-2xl overflow-hidden relative border-4 border-white/10 flex flex-col items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+         <Image src="/smile.jpg" alt="Most Beautiful Smile" fill className="object-cover" priority />
       </div>
     </div>,
 

@@ -345,9 +345,27 @@ export default function WrappedPage() {
         <p className="text-xl font-bold text-ivory mb-1">✨ Rare Character</p>
         <p className="text-gold text-sm">Unlocked Forever</p>
       </div>
+    </div>,
 
-      <p className="text-sm text-ivory/50 tracking-widest uppercase mb-2">Happy Birthday sm yg heres to many memories</p>
-      <p className="text-2xl font-serif italic text-gold">I love you</p>
+    // POST-FINAL
+    <div key="post-final" className="flex flex-col items-center justify-center text-center h-full px-6 w-full">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 1.5 }}
+      >
+        <p className="text-gold tracking-[0.2em] text-sm uppercase mb-6">Once Again</p>
+        <h2 className="text-4xl font-serif italic text-ivory mb-4 leading-tight">
+          Happy 25th Birthday<br/>to you <span className="text-gold">sayang</span>
+        </h2>
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1] }} 
+          transition={{ repeat: Infinity, duration: 2 }}
+          className="text-4xl mt-8"
+        >
+          ❤️
+        </motion.div>
+      </motion.div>
     </div>
   ];
 

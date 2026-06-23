@@ -81,9 +81,8 @@ export default function SemarangTicketPage() {
             initial={{ rotateX: 0 }}
             animate={isOpen ? { rotateX: 180 } : { rotateX: 0 }}
             transition={{ duration: 0.8, type: "spring" }}
-            style={{ transformOrigin: "top center", backfaceVisibility: "hidden" }}
+            style={{ transformOrigin: "top center", backfaceVisibility: "hidden", clipPath: "polygon(0 0, 100% 0, 50% 100%)" }}
             className="absolute top-0 left-0 right-0 h-2/3 bg-[#F3D16C] rounded-t-md z-30 flex items-center justify-center"
-            style={{ clipPath: "polygon(0 0, 100% 0, 50% 100%)", transformOrigin: "top" }}
           >
             <div className="absolute top-1/3 w-12 h-12 bg-[#8B0000] rounded-full shadow-inner flex items-center justify-center">
                <Mail className="w-5 h-5 text-white/50" />

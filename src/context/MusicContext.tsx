@@ -20,7 +20,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Create audio element only on client
-    audioRef.current = new Audio("/birthday.mp3");
+    audioRef.current = new Audio("/birthday.m4a");
     audioRef.current.loop = true;
     
     return () => {

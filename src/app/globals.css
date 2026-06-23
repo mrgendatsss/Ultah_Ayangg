@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ivory-white: #FAF8F5;
+  --champagne: #F3EDE4;
+  --warm-beige: #E7DDD1;
+  --soft-taupe: #B8AA9C;
+  --sage-mist: #D8DDD3;
+  --charcoal: #2D2D2D;
+  --gold-accent: #C8A86B;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ivory: var(--ivory-white);
+  --color-champagne: var(--champagne);
+  --color-beige: var(--warm-beige);
+  --color-taupe: var(--soft-taupe);
+  --color-sage: var(--sage-mist);
+  --color-charcoal: var(--charcoal);
+  --color-gold: var(--gold-accent);
+  --font-sans: var(--font-outfit);
+  --font-serif: var(--font-playfair);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #2D2D2D;
+    --foreground: #FAF8F5;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hide scrollbar for TikTok/Wrapped style feeds */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

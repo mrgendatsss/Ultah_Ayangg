@@ -8,6 +8,14 @@ import { useRouter } from "next/navigation";
 export default function WrappedPage() {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const phrases = [
+    "Sebentar ya", "Aku capek", "Nanti aku kabarin", 
+    "Coba kita lihat dulu", "Gapapa", "Kangen poll", 
+    "Najongg", "Hadehhh", "Aku pusing", "Aku sakit gigi", 
+    "Ntar ku call balik", "Aku mau meeting dulu", "Sedihhh", "Mengantokk"
+  ];
 
   const slides = [
     // HERO
@@ -77,9 +85,7 @@ export default function WrappedPage() {
         <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5"><span className="text-2xl">🎨</span><span className="text-ivory font-medium">UI/UX Thinker</span></div>
         <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5"><span className="text-2xl">🚀</span><span className="text-ivory font-medium">Startup Builder</span></div>
         <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5"><span className="text-2xl">📊</span><span className="text-ivory font-medium">Problem Solver</span></div>
-        <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5"><span className="text-2xl">☕</span><span className="text-ivory font-medium">Coffee Enthusiast</span></div>
         <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5"><span className="text-2xl">🧠</span><span className="text-ivory font-medium">Professional Overthinker</span></div>
-        <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5"><span className="text-2xl">📱</span><span className="text-ivory font-medium">Tab Collector</span></div>
       </div>
     </div>,
 
@@ -95,46 +101,17 @@ export default function WrappedPage() {
       </div>
       <div className="w-full bg-white/5 p-5 rounded-2xl border border-white/10 mb-4">
         <p className="text-xs text-ivory/50 uppercase tracking-widest mb-2">Special Skill</p>
-        <p className="text-gold italic font-serif text-lg">&quot;Sebentar aku bikin flow dulu.&quot;</p>
+        <p className="text-gold italic font-serif text-lg">&quot;Bentar yaa aku meeting dulu sama pak iki&quot;</p>
       </div>
       <div className="w-full bg-white/5 p-5 rounded-2xl border border-white/10">
         <p className="text-xs text-ivory/50 uppercase tracking-widest mb-2">Ultimate Ability</p>
-        <p className="text-ivory font-medium">Making complicated things look simple.</p>
+        <p className="text-ivory font-medium">Ngerjain kerjaan dadakan roro jonggrang, tp kelar walau sambil ngeluh &quot;aku pusing sayang&quot;</p>
       </div>
     </div>,
 
-    // SECTION 06
-    <div key="sec6" className="flex flex-col items-center justify-center text-center h-full px-6 w-full">
+    // SECTION 06 (Formerly 07)
+    <div key="sec6" className="flex flex-col items-start justify-center h-full px-8 w-full">
       <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 06</p>
-      <h2 className="text-4xl font-bold text-ivory mb-2">Bug Hunter<br/>Of The Year</h2>
-      <p className="text-ivory/50 text-sm uppercase tracking-widest mb-12">2026 Achievement</p>
-      <div className="grid grid-cols-2 gap-4 w-full">
-        <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
-          <p className="text-3xl font-bold text-gold mb-1">∞</p>
-          <p className="text-xs text-ivory/60 uppercase tracking-widest">Found</p>
-        </div>
-        <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
-          <p className="text-3xl font-bold text-gold mb-1">∞</p>
-          <p className="text-xs text-ivory/60 uppercase tracking-widest">Reported</p>
-        </div>
-        <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
-          <p className="text-lg font-bold text-ivory mb-1">Most of them</p>
-          <p className="text-xs text-ivory/60 uppercase tracking-widest">Fixed</p>
-        </div>
-        <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
-          <p className="text-lg font-bold text-ivory mb-1">Some accidentally</p>
-          <p className="text-xs text-ivory/60 uppercase tracking-widest">Created</p>
-        </div>
-      </div>
-      <div className="w-full bg-white/5 p-4 rounded-2xl border border-white/10 mt-4">
-        <p className="text-lg font-bold text-ivory mb-1">Only a few</p>
-        <p className="text-xs text-ivory/60 uppercase tracking-widest">Ignored</p>
-      </div>
-    </div>,
-
-    // SECTION 07
-    <div key="sec7" className="flex flex-col items-start justify-center h-full px-8 w-full">
-      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 07</p>
       <h2 className="text-4xl font-bold text-ivory mb-2">Operating System</h2>
       <p className="text-ivory/50 text-sm uppercase tracking-widest mb-10">Powered By</p>
       
@@ -153,33 +130,30 @@ export default function WrappedPage() {
       </div>
     </div>,
 
-    // SECTION 08
-    <div key="sec8" className="flex flex-col items-center justify-center text-center h-full px-6 w-full relative">
-      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-16">Section 08</p>
-      <h2 className="text-2xl font-bold text-ivory mb-16">Things She Says Most</h2>
+    // SECTION 07 (Formerly 08)
+    <div key="sec7" className="flex flex-col items-center justify-center text-center h-full px-4 w-full relative">
+      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-8">Section 07</p>
+      <h2 className="text-3xl font-bold text-ivory mb-12">Things She Says Most</h2>
       
-      <div className="relative w-full h-64">
-        <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="absolute top-0 left-0">
-          <p className="text-2xl font-serif text-gold italic">&quot;Sebentar ya&quot;</p>
-        </motion.div>
-        <motion.div animate={{ y: [0, 15, 0] }} transition={{ duration: 5, repeat: Infinity, delay: 1 }} className="absolute top-1/4 right-0">
-          <p className="text-xl font-serif text-ivory/80 italic">&quot;Aku capek&quot;</p>
-        </motion.div>
-        <motion.div animate={{ y: [0, -15, 0] }} transition={{ duration: 4.5, repeat: Infinity, delay: 0.5 }} className="absolute top-1/2 left-4">
-          <p className="text-xl font-serif text-ivory italic">&quot;Nanti aku kabarin&quot;</p>
-        </motion.div>
-        <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 3.5, repeat: Infinity, delay: 1.5 }} className="absolute bottom-1/4 right-4">
-          <p className="text-lg font-serif text-gold/80 italic">&quot;Coba kita lihat dulu&quot;</p>
-        </motion.div>
-        <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 3, repeat: Infinity }} className="absolute bottom-0 left-1/4">
-          <p className="text-3xl font-serif text-ivory font-bold italic">&quot;Gapapa&quot;</p>
-        </motion.div>
+      <div className="flex flex-wrap justify-center gap-3 w-full">
+        {phrases.map((phrase, idx) => (
+          <motion.span 
+            key={idx}
+            animate={{ y: [0, idx % 2 === 0 ? -4 : 4, 0] }}
+            transition={{ duration: 3 + (idx % 3), repeat: Infinity, ease: "easeInOut" }}
+            className={`font-serif italic px-4 py-3 bg-white/5 rounded-xl border border-white/10 flex-grow text-center ${
+              idx % 3 === 0 ? 'text-gold text-xl font-bold' : 'text-ivory/90 text-lg'
+            }`}
+          >
+            &quot;{phrase}&quot;
+          </motion.span>
+        ))}
       </div>
     </div>,
 
-    // SECTION 09
-    <div key="sec9" className="flex flex-col items-start justify-center h-full px-8 w-full">
-      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 09</p>
+    // SECTION 08 (Formerly 09)
+    <div key="sec8" className="flex flex-col items-start justify-center h-full px-8 w-full">
+      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 08</p>
       <h2 className="text-4xl font-bold text-ivory mb-2">Certified Listener</h2>
       <div className="flex items-center gap-4 mb-10">
         <p className="text-ivory/50 text-sm uppercase tracking-widest">Listening Skill</p>
@@ -195,9 +169,9 @@ export default function WrappedPage() {
       </ul>
     </div>,
 
-    // SECTION 10
-    <div key="sec10" className="flex flex-col items-center justify-center text-center h-full px-6 w-full">
-      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 10</p>
+    // SECTION 09 (Formerly 10)
+    <div key="sec9" className="flex flex-col items-center justify-center text-center h-full px-6 w-full">
+      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 09</p>
       <h2 className="text-2xl font-light text-ivory mb-2">We&apos;ve spent</h2>
       <p className="text-5xl font-bold text-gold mb-2">600 Days</p>
       <p className="text-3xl font-serif text-ivory italic mb-4">Together</p>
@@ -215,9 +189,9 @@ export default function WrappedPage() {
       </div>
     </div>,
 
-    // SECTION 11
-    <div key="sec11" className="flex flex-col items-start justify-center h-full px-8 w-full">
-      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 11</p>
+    // SECTION 10 (Formerly 11)
+    <div key="sec10" className="flex flex-col items-start justify-center h-full px-8 w-full">
+      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 10</p>
       <h2 className="text-3xl font-bold text-ivory mb-2">Relationship DLC</h2>
       <p className="text-ivory/50 text-sm uppercase tracking-widest mb-8">Additional Content Unlocked</p>
       
@@ -233,9 +207,9 @@ export default function WrappedPage() {
       </div>
     </div>,
 
-    // SECTION 12
-    <div key="sec12" className="flex flex-col items-start justify-center h-full px-8 w-full">
-      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 12</p>
+    // SECTION 11 (Formerly 12)
+    <div key="sec11" className="flex flex-col items-start justify-center h-full px-8 w-full">
+      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 11</p>
       <h2 className="text-3xl font-bold text-ivory mb-8 leading-tight">Things People<br/>Love About You</h2>
       
       <ul className="space-y-5 text-xl font-serif italic text-ivory/90">
@@ -249,9 +223,9 @@ export default function WrappedPage() {
       </ul>
     </div>,
 
-    // SECTION 13
-    <div key="sec13" className="flex flex-col items-center justify-center text-center h-full px-8 w-full">
-      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 13</p>
+    // SECTION 12 (Formerly 13)
+    <div key="sec12" className="flex flex-col items-center justify-center text-center h-full px-8 w-full">
+      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 12</p>
       <h2 className="text-3xl font-bold text-ivory mb-12">Things You Should<br/>Be Proud Of</h2>
       
       <div className="space-y-6 text-lg text-ivory/80 font-light">
@@ -268,9 +242,9 @@ export default function WrappedPage() {
       </div>
     </div>,
 
-    // SECTION 14
-    <div key="sec14" className="flex flex-col items-center justify-center text-center h-full px-6 w-full">
-      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 14</p>
+    // SECTION 13 (Formerly 14)
+    <div key="sec13" className="flex flex-col items-center justify-center text-center h-full px-6 w-full">
+      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 13</p>
       <h2 className="text-4xl font-serif text-gold italic mb-12">Plot Twist</h2>
       
       <div className="w-full bg-white/5 p-6 rounded-2xl border border-white/10 mb-6">
@@ -299,9 +273,9 @@ export default function WrappedPage() {
       </div>
     </div>,
 
-    // SECTION 15
-    <div key="sec15" className="flex flex-col items-center justify-center text-center h-full px-6 w-full">
-      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 15</p>
+    // SECTION 14 (Formerly 15)
+    <div key="sec14" className="flex flex-col items-center justify-center text-center h-full px-6 w-full">
+      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 14</p>
       <h2 className="text-3xl font-bold text-ivory mb-10">People Who<br/>Love You</h2>
       
       <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -318,9 +292,9 @@ export default function WrappedPage() {
       </div>
     </div>,
 
-    // SECTION 16
-    <div key="sec16" className="flex flex-col items-center justify-center text-center h-full px-8 w-full">
-      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 16</p>
+    // SECTION 15 (Formerly 16)
+    <div key="sec15" className="flex flex-col items-center justify-center text-center h-full px-8 w-full">
+      <p className="text-gold tracking-[0.2em] text-xs uppercase mb-6">Section 15</p>
       <h2 className="text-3xl font-bold text-ivory mb-12">A Small Part<br/>About Us</h2>
       
       <div className="space-y-6 text-xl font-serif italic text-ivory/90 mb-12">
@@ -377,8 +351,10 @@ export default function WrappedPage() {
     </div>
   ];
 
-  // Auto-advance logic (7 seconds per slide since there's a lot of text)
+  // Auto-advance logic with pause support
   useEffect(() => {
+    if (isPaused) return;
+
     const timer = setInterval(() => {
       if (currentSlide < slides.length - 1) {
         setCurrentSlide(prev => prev + 1);
@@ -388,7 +364,7 @@ export default function WrappedPage() {
     }, 7000);
 
     return () => clearInterval(timer);
-  }, [currentSlide]);
+  }, [currentSlide, isPaused]);
 
   const handleTap = (e: React.MouseEvent<HTMLDivElement>) => {
     const screenWidth = window.innerWidth;
@@ -407,8 +383,13 @@ export default function WrappedPage() {
 
   return (
     <div 
-      className="h-[100dvh] w-full overflow-hidden transition-colors duration-500 relative bg-charcoal"
+      className="h-[100dvh] w-full overflow-hidden transition-colors duration-500 relative bg-charcoal select-none touch-none"
       onClick={handleTap}
+      onPointerDown={() => setIsPaused(true)}
+      onPointerUp={() => setIsPaused(false)}
+      onPointerLeave={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={() => setIsPaused(false)}
     >
       {/* Progress Bars */}
       <div className="absolute top-0 left-0 w-full p-4 flex gap-1 z-50 pt-safe">
@@ -417,13 +398,16 @@ export default function WrappedPage() {
             {idx < currentSlide && (
               <div className="w-full h-full bg-gold rounded-full" />
             )}
-            {idx === currentSlide && (
+            {idx === currentSlide && !isPaused && (
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 7, ease: "linear" }}
                 className="h-full bg-gold rounded-full origin-left"
               />
+            )}
+            {idx === currentSlide && isPaused && (
+              <div className="h-full bg-gold rounded-full w-1/2 opacity-50" />
             )}
           </div>
         ))}
@@ -459,7 +443,7 @@ export default function WrappedPage() {
           transition={{ delay: 2 }}
           className="absolute bottom-8 w-full text-center text-xs opacity-50 uppercase tracking-widest pointer-events-none text-gold"
         >
-          Tap right to continue
+          Tap right to continue / Hold to pause
         </motion.div>
       )}
     </div>

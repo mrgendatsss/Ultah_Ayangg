@@ -64,9 +64,9 @@ export default function LetterPage() {
           className="pb-10"
         >
           <button
-            onClick={() => router.push('/timeline')}
+            onClick={() => router.push('/wrapped')}
             disabled={!showButton}
-            className="w-full bg-soft-pink text-warm-black font-semibold py-4 rounded-full active:scale-95 transition-transform disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_30px_rgba(248,200,220,0.3)]"
+            className="w-full bg-gold text-charcoal font-semibold py-4 rounded-full active:scale-95 transition-transform disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_30px_rgba(212,175,55,0.3)]"
           >
             Continue
           </button>

@@ -18,6 +18,10 @@ export default function SendWishesPage() {
       let videoUrl = null;
 
       if (file) {
+        if (file.size > 3 * 1024 * 1024) {
+          throw new Error("Video file size must be less than 3MB. Please compress your video.");
+        }
+
         const fileExt = file.name.split('.').pop();
         const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
         const filePath = `wishes/${fileName}`;
@@ -115,11 +119,12 @@ export default function SendWishesPage() {
                 file:bg-gold/10 file:text-gold
                 hover:file:bg-gold/20"
             />
+            <p className="text-xs text-white/40 mt-2">Maximum file size: 3MB. If your video is larger, please compress it first.</p>
           </div>
 
           {status === "error" && (
-            <div className="text-red-400 text-sm">
-              An error occurred while submitting. Please try again.
+            <div className="text-red-400 text-sm bg-red-400/10 p-3 rounded-lg border border-red-400/20">
+              An error occurred while submitting. Please try again or check your video size.
             </div>
           )}
 

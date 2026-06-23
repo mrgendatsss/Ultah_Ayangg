@@ -163,7 +163,7 @@ export default function Page01And02() {
                   transition={{ duration: 0.2 }}
                   className="text-cream-white/70 text-sm italic absolute text-center w-full"
                 >
-                  "{quotes[quoteIndex]}"
+                  &quot;{quotes[quoteIndex]}&quot;
                 </motion.p>
               </AnimatePresence>
             </div>

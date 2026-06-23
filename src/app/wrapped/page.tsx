@@ -184,8 +184,8 @@ export default function WrappedPage() {
         <p className="text-gold font-bold text-xl mt-4">Millions of Memories</p>
       </div>
 
-      <div className="w-full aspect-video bg-white/10 rounded-2xl overflow-hidden relative border-4 border-white/10 flex flex-col items-center justify-center">
-         <span className="text-ivory/30">[Photo Together]</span>
+      <div className="w-full aspect-[3/4] bg-white/10 rounded-2xl overflow-hidden relative border-4 border-white/10 flex flex-col items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.1)] mt-4">
+         <Image src="/photo_together.jpg" alt="Photo Together" fill className="object-cover" priority />
       </div>
     </div>,
 
@@ -287,8 +287,8 @@ export default function WrappedPage() {
 
       <p className="text-gold font-serif italic text-2xl mb-12 px-4">And one lucky guy standing beside you.</p>
 
-      <div className="w-full aspect-[4/3] bg-white/10 rounded-2xl overflow-hidden relative border-4 border-white/10 flex items-center justify-center">
-         <span className="text-ivory/30">[Collage Photos]</span>
+      <div className="w-full aspect-[3/4] bg-white/10 rounded-2xl overflow-hidden relative border-4 border-white/10 flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.1)] mt-4">
+         <Image src="/collage.jpg" alt="Collage Photos" fill className="object-cover" priority />
       </div>
     </div>,
 

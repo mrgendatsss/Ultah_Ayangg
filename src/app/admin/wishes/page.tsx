@@ -119,17 +119,18 @@ export default function AdminWishesPage() {
                     <h3 className="text-lg font-semibold text-gray-900">{wish.name}</h3>
                     {wish.has_been_loved && <span className="text-red-500 text-xl" title="Loved by Adzra">❤️</span>}
                   </div>
-                  <p className="text-sm text-gray-500">
-                    {new Date(wish.created_at).toLocaleDateString()}
-                  </p>
-                </div>
-                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    wish.status === "approved" ? "bg-green-100 text-green-700" :
-                    wish.status === "rejected" ? "bg-red-100 text-red-700" :
-                    "bg-yellow-100 text-yellow-700"
-                  }`}>
-                    {wish.status.toUpperCase()}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm text-gray-500">
+                      {new Date(wish.created_at).toLocaleDateString()}
+                    </p>
+                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      wish.status === "approved" ? "bg-green-100 text-green-700" :
+                      wish.status === "rejected" ? "bg-red-100 text-red-700" :
+                      "bg-yellow-100 text-yellow-700"
+                    }`}>
+                      {wish.status.toUpperCase()}
+                    </span>
+                  </div>
                 </div>
                 <p className="text-gray-700 whitespace-pre-wrap mb-6">{wish.message}</p>
                 

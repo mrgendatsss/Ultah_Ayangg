@@ -10,6 +10,9 @@ type Wish = {
   video_url: string | null;
   status: "pending" | "approved" | "rejected";
   created_at: string;
+  has_been_loved?: boolean;
+  comments?: any[];
+  sort_order?: number;
 };
 
 export default function AdminWishesPage() {
@@ -25,7 +28,8 @@ export default function AdminWishesPage() {
     const { data, error } = await supabase
       .from("wishes")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true });
 
     if (!error && data) {
       setWishes(data as Wish[]);
@@ -48,6 +52,36 @@ export default function AdminWishesPage() {
     }
   };
 
+  const moveUp = async (index: number) => {
+    if (index === 0) return;
+    const current = wishes[index];
+    const above = wishes[index - 1];
+    
+    const { error: err1 } = await supabase.from("wishes").update({ sort_order: above.sort_order || 0 }).eq("id", current.id);
+    const { error: err2 } = await supabase.from("wishes").update({ sort_order: current.sort_order || 0 }).eq("id", above.id);
+    
+    if (!err1 && !err2) {
+      fetchWishes(); // Refresh the list
+    } else {
+      alert("Error reordering");
+    }
+  };
+
+  const moveDown = async (index: number) => {
+    if (index === wishes.length - 1) return;
+    const current = wishes[index];
+    const below = wishes[index + 1];
+    
+    const { error: err1 } = await supabase.from("wishes").update({ sort_order: below.sort_order || 0 }).eq("id", current.id);
+    const { error: err2 } = await supabase.from("wishes").update({ sort_order: current.sort_order || 0 }).eq("id", below.id);
+    
+    if (!err1 && !err2) {
+      fetchWishes(); // Refresh the list
+    } else {
+      alert("Error reordering");
+    }
+  };
+
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold text-gray-900 mb-6">Wishes Moderation</h1>
@@ -58,8 +92,12 @@ export default function AdminWishesPage() {
         <p className="text-gray-500">No wishes found.</p>
       ) : (
         <div className="grid gap-6">
-          {wishes.map((wish) => (
-            <div key={wish.id} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex gap-6">
+          {wishes.map((wish, index) => (
+            <div key={wish.id} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex gap-6 relative">
+              <div className="absolute right-6 bottom-6 flex flex-col gap-2">
+                 <button onClick={() => moveUp(index)} disabled={index === 0} className="p-2 bg-gray-100 rounded-md disabled:opacity-30 hover:bg-gray-200">⬆️</button>
+                 <button onClick={() => moveDown(index)} disabled={index === wishes.length - 1} className="p-2 bg-gray-100 rounded-md disabled:opacity-30 hover:bg-gray-200">⬇️</button>
+              </div>
               {wish.video_url && (
                 <div className="w-48 h-64 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                   <video 

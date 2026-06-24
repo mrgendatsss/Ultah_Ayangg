@@ -12,6 +12,9 @@ type Wish = {
   message: string;
   video_url: string | null;
   created_at: string;
+  has_been_loved?: boolean;
+  comments?: any[];
+  sort_order?: number;
 };
 
 function VideoPlayer({ src }: { src: string }) {
@@ -124,6 +127,8 @@ export default function WishesFeedPage() {
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [showComments, setShowComments] = useState(false);
+  const [commentText, setCommentText] = useState("");
 
   useEffect(() => {
     fetchWishes();
@@ -134,7 +139,8 @@ export default function WishesFeedPage() {
       .from("wishes")
       .select("*")
       .eq("status", "approved")
-      .order("created_at", { ascending: false });
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true });
 
     if (!error && data) {
       setWishes(data as Wish[]);
@@ -154,6 +160,29 @@ export default function WishesFeedPage() {
     if (currentIndex > 0) {
       setCurrentIndex(prev => prev - 1);
     }
+  };
+
+  const toggleLove = async () => {
+    if (!wishes[currentIndex]) return;
+    const wish = wishes[currentIndex];
+    const newStatus = !wish.has_been_loved;
+    
+    setWishes(prev => prev.map((w, i) => i === currentIndex ? { ...w, has_been_loved: newStatus } : w));
+    await supabase.from("wishes").update({ has_been_loved: newStatus }).eq("id", wish.id);
+  };
+
+  const handleAddComment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!commentText.trim() || !wishes[currentIndex]) return;
+    
+    const wish = wishes[currentIndex];
+    const newComment = { text: commentText, created_at: new Date().toISOString() };
+    const updatedComments = [...(wish.comments || []), newComment];
+    
+    setWishes(prev => prev.map((w, i) => i === currentIndex ? { ...w, comments: updatedComments } : w));
+    setCommentText("");
+    
+    await supabase.from("wishes").update({ comments: updatedComments }).eq("id", wish.id);
   };
 
   if (loading) {
@@ -230,19 +259,67 @@ export default function WishesFeedPage() {
             </div>
 
             <div className="flex flex-col gap-6 items-center pb-2 pointer-events-auto">
-              <button className="flex flex-col items-center text-white drop-shadow-md active:scale-90 transition-transform">
-                <div className="bg-black/20 p-3 rounded-full backdrop-blur-sm mb-1">
-                  <Heart className="w-7 h-7 fill-white/20" />
+              <button onClick={toggleLove} className="flex flex-col items-center text-white drop-shadow-md active:scale-90 transition-transform">
+                <div className={`p-3 rounded-full backdrop-blur-sm mb-1 transition-colors ${currentWish.has_been_loved ? 'bg-red-500/20' : 'bg-black/20'}`}>
+                  <Heart className={`w-7 h-7 transition-colors ${currentWish.has_been_loved ? 'fill-red-500 text-red-500' : 'fill-white/20'}`} />
                 </div>
               </button>
-              <button className="flex flex-col items-center text-white drop-shadow-md active:scale-90 transition-transform">
+              <button onClick={() => setShowComments(true)} className="flex flex-col items-center text-white drop-shadow-md active:scale-90 transition-transform relative">
                 <div className="bg-black/20 p-3 rounded-full backdrop-blur-sm mb-1">
                   <MessageCircle className="w-7 h-7 fill-white/20" />
                 </div>
+                {currentWish.comments && currentWish.comments.length > 0 && (
+                   <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center font-bold">{currentWish.comments.length}</span>
+                )}
               </button>
             </div>
           </div>
         </motion.div>
+      </AnimatePresence>
+
+      {/* Comments Bottom Sheet */}
+      <AnimatePresence>
+        {showComments && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setShowComments(false)}
+              className="absolute inset-0 bg-black/50 z-[60] pointer-events-auto"
+            />
+            <motion.div 
+              initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="absolute bottom-0 left-0 w-full h-[60vh] bg-[#111] rounded-t-3xl z-[70] flex flex-col pointer-events-auto border-t border-white/10"
+            >
+              <div className="p-4 border-b border-white/10 flex justify-between items-center bg-[#111] rounded-t-3xl">
+                <h3 className="text-white font-bold">{wishes[currentIndex]?.comments?.length || 0} Comments</h3>
+                <button onClick={() => setShowComments(false)} className="text-white/60 p-2 rounded-full bg-white/5 active:scale-90">✕</button>
+              </div>
+              <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
+                {wishes[currentIndex]?.comments?.map((c: any, i: number) => (
+                   <div key={i} className="flex gap-3">
+                     <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center flex-shrink-0 text-gold font-bold">A</div>
+                     <div>
+                       <p className="text-white/60 text-xs font-semibold mb-1">Arjaaaa</p>
+                       <p className="text-white text-sm">{c.text}</p>
+                     </div>
+                   </div>
+                ))}
+                {(!wishes[currentIndex]?.comments || wishes[currentIndex].comments.length === 0) && (
+                  <div className="text-center text-white/40 mt-10 text-sm">No comments yet. Be the first to reply!</div>
+                )}
+              </div>
+              <form onSubmit={handleAddComment} className="p-4 border-t border-white/10 flex gap-2 bg-[#111]">
+                <input 
+                  type="text" 
+                  value={commentText} onChange={e => setCommentText(e.target.value)}
+                  placeholder="Add comment..."
+                  className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-white focus:outline-none focus:border-gold/50"
+                />
+                <button type="submit" disabled={!commentText.trim()} className="text-gold font-bold px-4 disabled:opacity-50">Send</button>
+              </form>
+            </motion.div>
+          </>
+        )}
       </AnimatePresence>
     </div>
   );

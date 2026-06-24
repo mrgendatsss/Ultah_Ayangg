@@ -67,7 +67,7 @@ function VideoPlayer({ src }: { src: string }) {
         onWaiting={() => setIsBuffering(true)}
         onPlaying={() => setIsBuffering(false)}
         onCanPlay={() => setIsBuffering(false)}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain"
       />
       
       {/* Play/Pause Overlay */}

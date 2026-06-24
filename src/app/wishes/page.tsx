@@ -129,6 +129,11 @@ export default function WishesFeedPage() {
   const [loading, setLoading] = useState(true);
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    setIsExpanded(false);
+  }, [currentIndex]);
 
   useEffect(() => {
     fetchWishes();
@@ -252,9 +257,21 @@ export default function WishesFeedPage() {
             <div className="flex-1 pb-2 pr-12 pointer-events-auto">
               <h2 className="text-white font-bold text-xl drop-shadow-md">@{currentWish.name}</h2>
               {currentWish.video_url && (
-                <p className="text-white font-medium text-sm drop-shadow-md leading-relaxed mt-2 line-clamp-3">
-                  {currentWish.message}
-                </p>
+                <div className="mt-2 pointer-events-auto">
+                  <p className={`text-white font-medium text-sm drop-shadow-md leading-relaxed ${isExpanded ? '' : 'line-clamp-3'}`}>
+                    {currentWish.message}
+                  </p>
+                  {currentWish.message.length > 100 && !isExpanded && (
+                    <button onClick={(e) => { e.stopPropagation(); setIsExpanded(true); }} className="text-white/70 text-xs font-bold mt-1 hover:text-white transition-colors">
+                      See more
+                    </button>
+                  )}
+                  {isExpanded && (
+                    <button onClick={(e) => { e.stopPropagation(); setIsExpanded(false); }} className="text-white/70 text-xs font-bold mt-1 hover:text-white transition-colors">
+                      Show less
+                    </button>
+                  )}
+                </div>
               )}
             </div>
 

@@ -52,6 +52,12 @@ export default function AdminWishesPage() {
     }
   };
 
+  const copyReply = (wish: Wish, commentText: string) => {
+    const text = `✨ 𝐀𝐝𝐳𝐫𝐚 𝐫𝐞𝐩𝐥𝐲 𝐲𝐨𝐮𝐫 𝐰𝐢𝐬𝐡𝐞𝐬 ✨\n\nHaiii ${wish.name} 🩷,\n"${commentText}"\n\nMakasihh banyakk yaaa! 🎀`;
+    navigator.clipboard.writeText(text);
+    alert("Format reply lucu berhasil di-copy! ✨");
+  };
+
   const moveUp = async (index: number) => {
     if (index === 0) return;
     const current = wishes[index];
@@ -109,12 +115,14 @@ export default function AdminWishesPage() {
               )}
               <div className="flex-1">
                 <div className="flex justify-between items-start mb-4">
-                  <div>
+                  <div className="flex items-center gap-2">
                     <h3 className="text-lg font-semibold text-gray-900">{wish.name}</h3>
-                    <p className="text-sm text-gray-500">
-                      {new Date(wish.created_at).toLocaleDateString()}
-                    </p>
+                    {wish.has_been_loved && <span className="text-red-500 text-xl" title="Loved by Adzra">❤️</span>}
                   </div>
+                  <p className="text-sm text-gray-500">
+                    {new Date(wish.created_at).toLocaleDateString()}
+                  </p>
+                </div>
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                     wish.status === "approved" ? "bg-green-100 text-green-700" :
                     wish.status === "rejected" ? "bg-red-100 text-red-700" :
@@ -148,6 +156,31 @@ export default function AdminWishesPage() {
                   >
                     Reset to Pending
                   </button>
+                )}
+
+                {/* Comments Section */}
+                {wish.comments && wish.comments.length > 0 && (
+                  <div className="mt-6 border-t border-gray-100 pt-4">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                      💬 Comments & Replies
+                    </h4>
+                    <div className="space-y-3">
+                      {wish.comments.map((c, i) => (
+                        <div key={i} className="bg-gray-50 rounded-lg p-3 flex justify-between items-start gap-4">
+                          <div>
+                            <p className="text-xs font-bold text-gray-600 mb-1">Adzra (Admin)</p>
+                            <p className="text-sm text-gray-800">{c.text}</p>
+                          </div>
+                          <button
+                            onClick={() => copyReply(wish, c.text)}
+                            className="text-xs bg-pink-100 text-pink-700 px-3 py-1.5 rounded-md font-bold hover:bg-pink-200 transition-colors flex-shrink-0 border border-pink-200"
+                          >
+                            Copy Reply Lucu ✨
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
             </div>

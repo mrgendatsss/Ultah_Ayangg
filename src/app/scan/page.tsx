@@ -6,27 +6,55 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { ScanLine, ArrowLeft } from "lucide-react";
 import { QR_MAP } from "@/data/hunt-content";
+import { useHuntProgress } from "@/hooks/useHuntProgress";
 
 export default function ScanPage() {
   const [result, setResult] = useState<string>("");
   const [error, setError] = useState<string>("");
   const router = useRouter();
   const hasScanned = useRef(false);
+  const { progress } = useHuntProgress();
 
   const handleQRCode = useCallback((text: string) => {
     if (hasScanned.current) return;
 
     const entry = QR_MAP[text];
-    if (entry) {
-      hasScanned.current = true;
-      setResult(text);
-      const path = `/treasure-hunt/gift/${entry.clueId}/${entry.type}`;
-      setTimeout(() => router.push(path), 600);
-    } else {
+    if (!entry) {
       setError("QR Code ini bukan bagian dari journey ini.");
       setTimeout(() => setError(""), 3000);
+      return;
     }
-  }, [router]);
+
+    // Check if this QR is allowed based on current progress
+    const clueKey = `clue${entry.clueId}` as keyof typeof progress;
+    const status = progress[clueKey];
+
+    if (entry.type === "outside" && status !== "available") {
+      if (status === "locked") {
+        setError("🔒 Clue ini masih terkunci. Selesaikan clue sebelumnya dulu!");
+      } else if (status === "outside_done" || status === "completed") {
+        setError("✅ Kamu sudah scan QR ini. Coba scan QR yang di dalam hadiah!");
+      }
+      setTimeout(() => setError(""), 3000);
+      return;
+    }
+
+    if (entry.type === "inside" && status !== "outside_done") {
+      if (status === "locked" || status === "available") {
+        setError("🔒 Scan QR di luar hadiah dulu sebelum buka yang di dalam!");
+      } else if (status === "completed") {
+        setError("✅ Clue ini sudah selesai! Lanjut ke clue berikutnya.");
+      }
+      setTimeout(() => setError(""), 3000);
+      return;
+    }
+
+    // All checks passed - allow navigation
+    hasScanned.current = true;
+    setResult(text);
+    const path = `/treasure-hunt/gift/${entry.clueId}/${entry.type}`;
+    setTimeout(() => router.push(path), 600);
+  }, [router, progress]);
 
   const { ref } = useZxing({
     onDecodeResult(result) {

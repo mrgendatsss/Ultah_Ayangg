@@ -186,20 +186,13 @@ export default function TreasureHuntPage() {
             <Map className="w-10 h-10 text-gold" />
           </div>
           <h1 className="text-4xl font-serif text-gold mb-6 tracking-tight">
-            THE FINAL HUNT
+            The Final Hunt
           </h1>
-          <div className="text-ivory/70 leading-relaxed font-light text-sm space-y-3">
-            <p>Each gift has its own QR code.</p>
-            <p className="text-gold font-medium">
-              Find it.
-              <br />
-              Scan it.
-              <br />
-              Solve it.
-            </p>
-            <p>Only then can you unlock the next surprise.</p>
-            <p className="text-ivory/50 italic">Good luck, birthday girl.</p>
-          </div>
+          <p className="text-ivory/80 leading-relaxed font-light">
+            Welcome to Semarang! I&apos;ve hidden 3 gifts around the room for you.
+            Each one has a QR code attached to it. Find them and scan them to
+            unlock the rest of your birthday journey.
+          </p>
         </div>
 
         {/* Clue Cards */}
